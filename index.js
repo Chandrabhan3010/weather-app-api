@@ -9,7 +9,7 @@ function randerWeatherInfo(data) {
   document.body.appendChild(newPara);
 }
 
-//api calling
+//api calling 1
 async function fetchWeatherDetails() {
   try {
     let city = "goa";
@@ -26,7 +26,7 @@ async function fetchWeatherDetails() {
     console.log("eror has been occur", err);
   }
 }
-
+//api calling 2
 async function rndWeatherApi() {
   try {
     let lat = 23.3333;
@@ -66,7 +66,6 @@ function switchTab(clickedTab) {
   }
 }
 //get current position
-
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
