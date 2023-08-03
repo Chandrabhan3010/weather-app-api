@@ -83,9 +83,9 @@
 // }
 
 // switching between the tabs
-
+// ......................tab handling............................//
 const userTab = document.querySelector("[data-userWeather]");
-const serachTab = document.querySelector("[data-searchWeather]");
+const searchTab = document.querySelector("[data-searchWeather]");
 const userContainer = document.querySelector(".weather-container");
 
 const grantAccesscontainer = document.querySelector(
@@ -99,8 +99,10 @@ const userInfocontainer = document.querySelector(".user-info-container");
 
 let oldTab = userTab;
 const API_KEY = "87d96fc83e59690110dd0a3b75f6ef6e";
+//setting up default tab 
 oldTab.classList.add("current-tab");
 getFromSessionStorage();
+
 // ek kam or pending hai ///
 function switchTab(newTab) {
   if (newTab != oldTab) {
@@ -111,11 +113,12 @@ function switchTab(newTab) {
     if (!serachForm.classList.contains("active")) {
       //is search form container is invisible , if yes then make it visible
       userInfocontainer.classList.remove("active");
+      grantAccesscontainer.classList.remove('active')
       serachForm.classList.add("active");
     } else {
       //main pehle search wale tab pr tha , ab your weather tab visible krna hai
       serachForm.classList.remove("active");
-      userInfocontainer.classList.add("active"); //yaha dhyan rkhna
+      userInfocontainer.classList.remove("active"); //yaha dhyan rkhna
       //now i am on your wather tab , rhen weathe bhi display is necessory , so lets local storage
       getFromSessionStorage();
     }
@@ -127,12 +130,12 @@ userTab.addEventListener("click", () => {
   switchTab(userTab);
 });
 
-serachTab.addEventListener("click", () => {
+searchTab.addEventListener("click", () => {
   //pass clicked tab as a input parameter
-  switchTab(serachTab);
+  switchTab(searchTab);
 });
 
-//fuvtion get session storage //check are already present in session storage
+//fuvtion get session storage //check are already present in session storage 
 function getFromSessionStorage() {
   const localCoordinates = sessionStorage.getItem("user-coordinates");
   if (!localCoordinates) {
@@ -143,6 +146,7 @@ function getFromSessionStorage() {
     fetchUserWeatherInfo(coordinates);
   }
 }
+
 async function fetchUserWeatherInfo(coordinates) {
   const { lat, lon } = coordinates;
   //make grantContainer invisible
@@ -153,13 +157,12 @@ async function fetchUserWeatherInfo(coordinates) {
   //API CALL
   try {
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
     );
     const data = await response.json();
 
     loadingScreen.classList.remove("active");
     userInfocontainer.classList.add("active");
-
     renderWeatherInfo(data);
   } catch (error) {
     //mine work
@@ -168,6 +171,7 @@ async function fetchUserWeatherInfo(coordinates) {
   }
 }
 
+//render weather info in ui 
 function renderWeatherInfo(weatherInfo) {
   //firstly we have to fetch the element
   const cityName = document.querySelector("[data-cityName]");
@@ -182,9 +186,9 @@ function renderWeatherInfo(weatherInfo) {
   //fetch values from weatherinfo  object and put it ui elements
   cityName.innerText = weatherInfo?.name;
   countryIcon.src = `https://flagcdn.com/144x108/${weatherInfo?.sys?.country.toLowerCase()}.png`;
-  desc.innerText = weatherInfo?.wether?.[0]?.description;
+  desc.innerText = weatherInfo?.weather?.[0]?.description;//description
   weatherIcon.scr = `https://openweathermap.org/img/w/${weatherInfo?.weather?.[0]?.icon}.png`;
-  temp.innerText = weatherInfo?.main?.templ;
+  temp.innerText = weatherInfo?.main?.temp;
 
   windspeed.innerText = weatherInfo?.wind?.speed;
   humidity.innerText = weatherInfo?.main?.humidity;
@@ -192,7 +196,7 @@ function renderWeatherInfo(weatherInfo) {
 }
 
 //current location finding
-function geolocation() {
+function getlocation() {          //2
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
   } else {
@@ -204,23 +208,26 @@ function geolocation() {
 function showPosition(position) {
   const userCoordinates = {
     lat: position.coords.latitude,
-    lon: position.coords.longitute,
+    lon: position.coords.longitude,
   };
   sessionStorage.setItem("user-coordinates", JSON.stringify(userCoordinates));
   fetchUserWeatherInfo(userCoordinates);
 }
 
-const grantAccessButton = document.querySelector("[data-grantAccess]");
-grantAccessButton.addEventListener("click", geolocation());
+const grantAccessButton = document.querySelector("[data-grantAccess]");       //1
+grantAccessButton.addEventListener("click", getlocation);
+
+
 
 const searchInput = document.querySelector("[data-searchInput]");
 
 serachForm.addEventListener("submit", (e) => {
   e.preventDefault();
   let cityName = searchInput.value;
-
-  if (cityName === "") return;
-  else fetchSearchWeatherInfo(cityName);
+  if (cityName === "") 
+      return;
+  else 
+      fetchSearchWeatherInfo(cityName);
 });
 
 async function fetchSearchWeatherInfo(city) {
@@ -230,7 +237,7 @@ async function fetchSearchWeatherInfo(city) {
 
   try {
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metrics`
     );
     const data = await response.json();
 
@@ -241,6 +248,6 @@ async function fetchSearchWeatherInfo(city) {
   } catch (error) {
     //mine work
     // loadingScreen.classList.remove('active')
-    console.log("error has been accur", error);
+    console.log("error has been accur"+ error);
   }
 }

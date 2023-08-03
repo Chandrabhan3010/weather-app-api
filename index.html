@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 
 <body>
@@ -17,18 +19,19 @@
             <p class="tab" data-userWeather>Your Weather</p>
             <p class="tab" data-searchWeather>Search Weather</p>
         </div>
+        <!-- container -->
         <div class="weather-container">
             <!-- grant location container -->
             <div class="grant-location-container">
                 <img src="./weather-app-images/location.png" width="80" height="80" loading="lazy" alt="">
                 <p>grant location Access</p>
-                <p>Allow Access to get weather Information</p>
+                <p data-messageText>Allow Access to get weather Information</p>
                 <button class="btn" data-grantAccess>Grant Access</button>
             </div>
 
             <!-- search form => form-container  -->
             <form action="" class="form-container" data-searchForm>
-                <input class="" placeholder="Search for city...." data-searchInput>
+                <input class="" placeholder="Search for city...." data-searchInput />
                 <button class="btn" type="submit">
                     <img src="./weather-app-images/search.png" alt="" width="20" height="20" loading="lazy">
                 </button>
