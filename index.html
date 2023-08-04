@@ -48,14 +48,14 @@
                 <!-- city and flag -->
                 <div class="name">
                     <p data-cityName></p>
-                    <img src="" data-countryIcon  alt="">
+                    <img src="" data-countryIcon alt="">
                 </div>
 
                 <!-- weather desciption -->
                 <p data-weatherDesc></p>
 
                 <!-- weather icon -->
-                <img src="" data-weatherIcon >
+                <img src="" data-weatherIcon>
 
                 <!-- temperature -->
                 <p data-temp></p>
@@ -86,6 +86,13 @@
 
                 </div>
 
+            </div>
+            <!-- api error handling -->
+            <!-- handle api fetch error -->
+            <div class="sub-container api-error-container">
+                <img src="./weather-app-images/not-found.png" data-notFoundImg />
+                <p data-apiErrorText></p>
+                <button class="btn" data-apiErrorBtn>Retry</button>
             </div>
         </div>
     </div>
