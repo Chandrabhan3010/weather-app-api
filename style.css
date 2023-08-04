@@ -20,8 +20,15 @@
     height: 100vh;
     color: var(--colorLight2);
     background-color: #112d4e;
-    background-image: linear-gradient(160deg , #112d4e  0% , #3f72af 100%) ;
-    /* background: linear-gradient(90deg, rgba(0, 138, 255, 1) 0%, rgba(0, 188, 212, 1) 50%, rgba(130, 206, 238, 1) 100%); */
+    /* background-image: linear-gradient(160deg , #112d4e  0% , #3f72af 100%) ; this is main */
+    /* background: linear-gradient(90deg, rgba(0, 138, 255, 1) 0%, rgba(0, 188, 212, 1) 50%, rgba(130, 206, 238, 1) 100%);
+    background: linear-gradient(135deg, #3498db, #f39c12);
+    background: linear-gradient(135deg, #b3e0f2, #e6f7ff);
+    /* color: #333; */
+    /* background: linear-gradient(135deg, #1a1a1a, #f0f0f0); */ 
+    /* background: linear-gradient(135deg, #0077b3, #b3e0f2);
+    background: linear-gradient(135deg, #005a80, #b3e0f2); */
+    background: linear-gradient(135deg, #003c52, #b3e0f2); 
 }
 
 /* header and tab styles */
